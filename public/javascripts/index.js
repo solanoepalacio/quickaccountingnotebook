@@ -23,16 +23,16 @@ window.onload = function () {
         const transactionElements = transactions.map((transaction) => {
             console.log('transaction', transaction);
             const transactionElement = createElement('div', {
-                class: transaction.type
+                class: `transaction ${transaction.type}`
             });
 
             const innerContent = Object.entries(transaction).map(([key, value]) => {
                 const container = createElement('div', {
-                    class: key
+                    class: `datum ${key}`
                 });
                 
                 const keyPart = createElement('div', {
-                    class: 'part'
+                    class: 'key part'
                 });
                 keyPart.innerHTML = key;
                 container.appendChild(keyPart)

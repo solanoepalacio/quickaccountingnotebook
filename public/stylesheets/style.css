@@ -1,8 +1,64 @@
+* {
+  box-sizing: border-box;
+}
 body {
-  padding: 50px;
+  padding: 0;
+  margin: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+#root {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(240,240,240);
+}
+
+.container {
+  height: 100vh;
+  width: 80%;
+  min-width: 600px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#refresh-button {
+  justify-self: flex-end;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+#transaction-history {
+  overflow: auto;
+  flex-grow: 1;
+  padding: 2rem;
+  width: 100%;
+}
+.transaction {
+  margin-bottom: 1.2rem;
+  border-bottom: 1px solid rgb(225,225,225);
+}
+.datum {
+  display: flex;
+}
+
+.key.part {
+  width: 35%;
+  min-width: 220px;
+}
+.part {
+  padding: 0.5rem 1.2rem;
+}
+
+
+
+.header {
+  text-align: center;
 }
