@@ -1,5 +1,7 @@
 const uuid = require('uuid');
 
+const timeoutConfig = process.env.TIMEOUT_CONFIG || 10 * 1000;
+
 class Lock {
     constructor (isLocked = false) {
         this.id = uuid.v4();

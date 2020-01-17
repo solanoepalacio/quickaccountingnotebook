@@ -29,6 +29,22 @@ router.get('/', async function(req, res, next) {
 });
 
 /**
+ * Get the account balance
+ */
+router.get('/balance', async function(req, res, next) {
+    console.debug('Balance');
+    let accountBalance;
+    try {
+        accountBalance = await account.getBalance();
+    } catch (error) {
+        next(error);
+        return
+    }
+
+    res.status(200).send(String(accountBalance))
+});
+
+/**
  * Get a specific transaction by ID
  */
 router.get('/:transactionId', async function(req, res, next) {
@@ -56,6 +72,9 @@ router.get('/:transactionId', async function(req, res, next) {
     res.status(200).send(transaction);
 });
 
+/**
+ * Create new transaction
+ */
 router.post('/', async function(req, res, next) {
     console.debug('creating transaction');
     const { transactionDetails } = req.body;
@@ -76,15 +95,22 @@ router.post('/', async function(req, res, next) {
     }
 
     const transaction = new Transaction(type, amount);
-
+    
+    let transactionInserted;
     try {
-        await account.putTransaction(transaction);
+        transactionInserted = await account.putTransaction(transaction);
     } catch (error) {
         next(error);
         return
     }
-    
-    res.status(201).send('ok');
+
+    if (transactionInserted) {
+        res.status(201).send('ok');
+    } else {
+        res.status(400).send('Insuficient Funds');
+    }
 });
+
+
 
 module.exports = { router, prefix };
