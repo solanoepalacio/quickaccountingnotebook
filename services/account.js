@@ -8,19 +8,40 @@ class Account {
         this.lock = new Lock();
     }
 
+    waitForLock (methodName, ...args) {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+               resolve(this[methodName](...args)) 
+            });
+        })
+    }
+
     async getAllTransactions () {
-        return this.transactions
+        if (!this.lock.isLocked()) {
+            return this.transactions;
+        }
+
+        return this.waitForLock('getAllTransactions');
     }
     
     async getTransactionById (transactionId) {
-        return this.transactions.find((transaction) => {
-            return transaction.id === transactionId
-        });
+        if (!this.lock.isLocked()) {
+            return this.transactions.find((transaction) => {
+                return transaction.id === transactionId
+            });
+        }
+
+        return this.waitForLock('getTransactionById', transactionId);
     }
     
     async putTransaction (transaction) {
-        this.transactions.push(transaction);
-        return transaction;
+        if (!this.lock.isLocked()) {
+            this.lock.lock()
+            this.transactions.push(transaction);
+            this.lock.unlock();
+            return transaction;
+        }
+        return this.waitForLock('putTransaction', transaction);
     }
 }
 

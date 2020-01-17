@@ -14,7 +14,7 @@ class Lock {
         this._isLocked = false;
     }
 
-    isLocked() {
+    isLocked () {
         return this._isLocked;
     }
 }

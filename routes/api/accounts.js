@@ -16,7 +16,7 @@ const account = new Account();
  * Get all transaction in the default account
  */
 router.get('/', async function(req, res, next) {
-    console.log('all transactions');
+    console.debug('all transactions');
     let allTransactions;
     try {
         allTransactions = await account.getAllTransactions();
@@ -32,7 +32,7 @@ router.get('/', async function(req, res, next) {
  * Get a specific transaction by ID
  */
 router.get('/:transactionId', async function(req, res, next) {
-    console.log('in transaction id')
+    console.debug('in transaction id')
     const {transactionId} = req.params;
 
     if (!transactionId || transactionId.length !== 36) {
@@ -57,7 +57,7 @@ router.get('/:transactionId', async function(req, res, next) {
 });
 
 router.post('/', async function(req, res, next) {
-    console.log('creating transaction');
+    console.debug('creating transaction');
     const { transactionDetails } = req.body;
     
     if (!transactionDetails) {
@@ -74,9 +74,9 @@ router.post('/', async function(req, res, next) {
     if (!Transaction.types.includes(type)) {
         res.status(400).send(`Invalid Request. Transaction Type must be one of ${Transaction.types}`)
     }
-    console.log('creating transaction');
+
     const transaction = new Transaction(type, amount);
-    console.log('transaction created');
+
     try {
         await account.putTransaction(transaction);
     } catch (error) {
