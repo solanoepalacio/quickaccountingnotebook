@@ -41,10 +41,13 @@ a {
   padding: 2rem;
   width: 100%;
 }
+
 .transaction {
   margin-bottom: 1.2rem;
   border-bottom: 1px solid rgb(225,225,225);
+  cursor: pointer;
 }
+
 .datum {
   display: flex;
 }
@@ -53,11 +56,26 @@ a {
   width: 35%;
   min-width: 220px;
 }
+
 .part {
   padding: 0.5rem 1.2rem;
 }
 
+.datum.id {
+  display: none;
+}
 
+.datum.date {
+  display: none;
+}
+
+.active .datum.id {
+  display: flex;
+}
+
+.active .datum.date {
+  display: flex;
+}
 
 .header {
   text-align: center;

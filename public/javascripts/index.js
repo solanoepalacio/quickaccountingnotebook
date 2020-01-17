@@ -31,7 +31,7 @@ window.onload = function () {
                     class: `datum ${key}`
                 });
                 
-                const keyPart = createElement('div', {
+                const keyPart = createElement('label', {
                     class: 'key part'
                 });
                 keyPart.innerHTML = key;
@@ -46,9 +46,13 @@ window.onload = function () {
             });
             innerContent.forEach(element => transactionElement.appendChild(element))
 
+            transactionElement.addEventListener('click', () => {
+                toggleActive(transactionElement);
+            })
+
             return transactionElement;
         });
-        console.log({transactionElements})
+
         const domFragment = document.createDocumentFragment();
 
         transactionElements.forEach((element) => {
@@ -57,6 +61,14 @@ window.onload = function () {
 
         transactionHistoryContainer.innerHTML = '';
         transactionHistoryContainer.appendChild(domFragment);
+    }
+
+    function toggleActive (element) {
+        if (element.classList.contains('active')) {
+            element.classList.remove('active');
+        } else {
+            element.classList.add('active');
+        }
     }
 }
 
